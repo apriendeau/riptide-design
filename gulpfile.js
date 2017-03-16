@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
+var mustache = require("gulp-mustache");
 
 gulp.task('clean-html', function() {
   return gulp.src('./dist')
@@ -27,7 +28,11 @@ gulp.task('scripts', ['clean-js'], function() {
 });
 
 gulp.task('html', ['clean-html'], function(){
-  return gulp.src('html/**/*.html')
+  return gulp.src('html/*.mustache')
+    .pipe(mustache())
+    .pipe(rename(function(path){
+      path.extname = ".html"
+    }))
     .pipe(gulp.dest('dist/'))
 });
 
