@@ -6,10 +6,6 @@ var uglify = require('gulp-uglify');
 var clean = require('gulp-clean');
 var mustache = require("gulp-mustache");
 
-gulp.task('clean-html', function() {
-  return gulp.src('./dist')
-    .pipe(clean())
-})
 
 gulp.task('clean-js', function() {
   return gulp.src('./dist/js')
@@ -27,7 +23,7 @@ gulp.task('scripts', ['clean-js'], function() {
       .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('html', ['clean-html'], function(){
+gulp.task('html', function(){
   return gulp.src('html/*.mustache')
     .pipe(mustache())
     .pipe(rename(function(path){
@@ -43,7 +39,7 @@ gulp.task('sass', ['clean-scss'], function () {
 });
 
 gulp.task('sass:watch', function () {
-  gulp.watch('./sass/**/*.scss', ['sass']);
+  gulp.watch('./scss/**/*.scss', ['sass']);
 });
 
 gulp.task('js:watch', function () {
@@ -51,7 +47,7 @@ gulp.task('js:watch', function () {
 });
 
 gulp.task('html:watch', function () {
-  gulp.watch('./html/**/*.html', ['html']);
+  gulp.watch('./html/**/*.mustache', ['html']);
 });
 
 gulp.task('watch', ['sass:watch', 'js:watch', 'html:watch']);
